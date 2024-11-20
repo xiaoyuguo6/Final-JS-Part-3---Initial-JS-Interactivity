@@ -31,10 +31,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (name) {
             errorMessage.classList.add('hidden'); // Hide error message
+
+            // Format the time
+            let formattedTime = '';
+            if (time) {
+                const date = new Date(time);
+                formattedTime = new Intl.DateTimeFormat('en-US', {
+                    dateStyle: 'long',
+                    timeStyle: 'short'
+                }).format(date); // Example: "November 20, 2024, 02:37 AM"
+            }
+
+            // Create a new task item
             const li = document.createElement('li');
             li.className = `todo-item priority-${priority}`;
             li.innerHTML = `
-                <span>${name} ${time ? `📅 ${time}` : ''}</span>
+                <span>${name} ${formattedTime ? `📅 ${formattedTime}` : ''}</span>
                 <button class="complete-btn">✔</button>
                 <button class="delete-btn">✖</button>
             `;
