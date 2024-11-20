@@ -37,9 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const priority = taskPriority.value;
 
         if (name) {
-            errorMessage.classList.add('hidden'); // Hide error message
+            errorMessage.classList.add('hidden');
 
-            // Create a new task item
             const li = document.createElement('li');
             li.className = `todo-item priority-${priority}`;
             li.innerHTML = `
@@ -49,16 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             todoList.appendChild(li);
 
-            // Clear inputs
             taskName.value = '';
             taskTime.value = '';
             taskPriority.value = 'low';
         } else {
-            errorMessage.classList.remove('hidden'); // Show error message
+            errorMessage.classList.remove('hidden');
         }
     });
 
-    // Task Actions (Complete/Delete)
     todoList.addEventListener('click', (e) => {
         if (e.target.classList.contains('complete-btn')) {
             e.target.parentElement.classList.toggle('completed');
