@@ -7,51 +7,46 @@
 
 /* General Styles */
 body {
-    font-family: 'Comic Neue', sans-serif;
-    transition: background-color 0.3s, color 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    padding: 1rem;
+    font-family: 'Patrick Hand', cursive;
+    background-size: cover;
+    background-position: center;
+    transition: background 0.3s, color 0.3s;
+    text-align: center;
 }
 
 header {
-    text-align: center;
     margin-bottom: 1rem;
-}
-
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
     color: var(--header-text);
 }
 
-.theme-switcher {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
 }
 
-.theme-btn {
+.theme-switcher, .language-switcher {
+    margin: 0.5rem 0;
+}
+
+.theme-btn, .lang-btn {
     padding: 0.5rem 1rem;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 20px;
+    font-size: 1rem;
     transition: transform 0.2s, background-color 0.3s;
 }
 
-.theme-btn:hover {
+.theme-btn:hover, .lang-btn:hover {
     transform: scale(1.1);
 }
 
-/* To-Do Section */
 .todo-app {
     background: var(--card-bg);
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     padding: 1rem;
-    width: 90%;
+    margin: 1rem auto;
     max-width: 600px;
 }
 
@@ -66,96 +61,90 @@ header h1 {
 #task-priority {
     flex: 1;
     padding: 0.5rem;
-    border: 1px solid var(--input-border);
-    border-radius: 5px;
+    border: 2px solid var(--input-border);
+    border-radius: 15px;
 }
 
 #add-task {
-    padding: 0.5rem 1rem;
     background: var(--button-bg);
     color: var(--button-text);
     border: none;
-    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 1rem;
 }
 
 #todo-list {
     list-style: none;
-    margin-top: 1rem;
     padding: 0;
+    margin-top: 1rem;
 }
 
 .todo-item {
     background: var(--item-bg);
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-    border-radius: 5px;
+    border-radius: 15px;
+    padding: 1rem;
+    margin: 0.5rem 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    animation: slide-in 0.3s ease-in-out;
+    animation: fade-in 0.3s ease-in-out;
 }
 
-@keyframes slide-in {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-.completed {
-    text-decoration: line-through;
-    opacity: 0.7;
-}
-
-button.delete-btn,
-button.complete-btn {
-    background: var(--button-bg);
-    color: var(--button-text);
-    border: none;
-    padding: 0.5rem;
-    border-radius: 5px;
-    cursor: pointer;
+.todo-item:hover {
+    transform: scale(1.02);
 }
 
 /* Color Themes */
 .theme-spring {
     --header-text: #2c3e50;
-    --card-bg: #e8f8e9;
-    --input-border: #b6d7b9;
-    --button-bg: #74b786;
+    --card-bg: #fef8e8;
+    --input-border: #f3d1b2;
+    --button-bg: #ffb347;
     --button-text: #fff;
-    --item-bg: #c8ecc8;
+    --item-bg: #fff5e1;
+    background: url('https://i.imgur.com/JbP7jSc.png') no-repeat center center;
 }
 
 .theme-summer {
     --header-text: #d35400;
-    --card-bg: #ffedd2;
-    --input-border: #ffc58a;
+    --card-bg: #fff3d9;
+    --input-border: #ffb347;
     --button-bg: #f39c12;
     --button-text: #fff;
-    --item-bg: #ffe4b2;
+    --item-bg: #ffe7b3;
+    background: url('https://i.imgur.com/5qH2DtW.png') no-repeat center center;
 }
 
 .theme-autumn {
     --header-text: #8e44ad;
-    --card-bg: #fbeffb;
-    --input-border: #ddbdf1;
+    --card-bg: #faebff;
+    --input-border: #dcb4e7;
     --button-bg: #9b59b6;
     --button-text: #fff;
-    --item-bg: #e8d7f3;
+    --item-bg: #e5d4f1;
+    background: url('https://i.imgur.com/UYWV2hr.png') no-repeat center center;
 }
 
 .theme-winter {
     --header-text: #34495e;
-    --card-bg: #ecf6fb;
-    --input-border: #bcd3e9;
+    --card-bg: #edf7fa;
+    --input-border: #c1d8df;
     --button-bg: #3498db;
     --button-text: #fff;
-    --item-bg: #d7edf7;
+    --item-bg: #d9edf7;
+    background: url('https://i.imgur.com/O4QXozh.png') no-repeat center center;
+}
+
+/* Animations */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
