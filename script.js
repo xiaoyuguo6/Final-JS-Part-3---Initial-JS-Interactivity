@@ -1,67 +1,137 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize variables for theme buttons, form elements, and task list
-    const themeButtons = document.querySelectorAll('.theme-btn'); // Theme buttons
-    const todoForm = document.getElementById('todo-form'); // Task input form
-    const taskName = document.getElementById('task-name'); // Input field for task name
-    const taskTime = document.getElementById('task-time'); // Input field for date and time
-    const taskPriority = document.getElementById('task-priority'); // Dropdown for task priority
-    const todoList = document.getElementById('todo-list'); // Task list container
-    const errorMessage = document.getElementById('error-message'); // Error message for missing task name
-
-    // Setup Flatpickr for date and time input
+    const themeButtons = document.querySelectorAll('.theme-btn');
+    const todoForm = document.getElementById('todo-form');
+    const taskName = document.getElementById('task-name');
+    const taskTime = document.getElementById('task-time');
+    const taskPriority = document.getElementById('task-priority');
+    const todoList = document.getElementById('todo-list');
+    const errorMessage = document.getElementById('error-message');
+    
+    // Initialize Flatpickr
     flatpickr(taskTime, {
-        enableTime: true, // Enable time selection
-        dateFormat: "Y/m/d H:i", // Display format
-        locale: "en" // Ensure English display
+        enableTime: true,
+        dateFormat: "Y/m/d H:i",
+        locale: "en"
     });
 
-    // Set default theme
+    // Default theme setup
     let currentTheme = 'theme-spring';
-    document.body.classList.add(currentTheme); // Apply default theme
+    document.body.classList.add(currentTheme);
 
-    // Add theme switching functionality
     themeButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
-            document.body.classList.replace(currentTheme, btn.getAttribute('data-theme')); // Replace theme
-            currentTheme = btn.getAttribute('data-theme'); // Update current theme
+            document.body.classList.replace(currentTheme, btn.getAttribute('data-theme'));
+            currentTheme = btn.getAttribute('data-theme');
         });
     });
 
+    // Load tasks from localStorage
+    function loadTasks() {
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.forEach(task => renderTask(task));
+    }
+
+    // Save tasks to localStorage
+    function saveTasks() {
+        const tasks = [];
+        document.querySelectorAll('.todo-item').forEach(item => {
+            tasks.push({
+                name: item.dataset.name,
+                time: item.dataset.time,
+                priority: item.dataset.priority
+            });
+        });
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    // Render a task to the DOM
+    function renderTask(task) {
+        const li = document.createElement('li');
+        li.className = `todo-item priority-${task.priority}`;
+        li.dataset.name = task.name;
+        li.dataset.time = task.time || '';
+        li.dataset.priority = task.priority;
+
+        li.draggable = true; // Enable drag-and-drop
+        li.innerHTML = `
+            <span>${task.name} ${task.time ? `📅 ${task.time}` : ''}</span>
+            <button class="complete-btn">✔</button>
+            <button class="delete-btn">✖</button>
+        `;
+        todoList.appendChild(li);
+    }
+
+    // Drag-and-drop functionality
+    let draggedItem = null;
+
+    todoList.addEventListener('dragstart', (e) => {
+        if (e.target.classList.contains('todo-item')) {
+            draggedItem = e.target;
+            e.target.style.opacity = '0.5';
+        }
+    });
+
+    todoList.addEventListener('dragend', (e) => {
+        if (draggedItem) {
+            draggedItem.style.opacity = '1';
+            draggedItem = null;
+            saveTasks(); // Update localStorage after reordering
+        }
+    });
+
+    todoList.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const afterElement = getDragAfterElement(todoList, e.clientY);
+        if (draggedItem && afterElement) {
+            todoList.insertBefore(draggedItem, afterElement);
+        }
+    });
+
+    function getDragAfterElement(container, y) {
+        const draggableElements = [...container.querySelectorAll('.todo-item:not(.dragging)')];
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
     // Handle task submission
     todoForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Prevent form from refreshing the page
-        const name = taskName.value.trim(); // Get task name
-        const time = taskTime.value; // Get selected time
-        const priority = taskPriority.value; // Get selected priority
+        e.preventDefault();
+        const name = taskName.value.trim();
+        const time = taskTime.value;
+        const priority = taskPriority.value;
 
         if (name) {
-            errorMessage.classList.add('hidden'); // Hide error message
+            errorMessage.classList.add('hidden');
 
-            // Create and add task to the list
-            const li = document.createElement('li');
-            li.className = `todo-item priority-${priority}`;
-            li.innerHTML = `
-                <span>${name} ${time ? `📅 ${time}` : ''}</span>
-                <button class="complete-btn">✔</button>
-                <button class="delete-btn">✖</button>
-            `;
-            todoList.appendChild(li);
+            const task = { name, time, priority };
+            renderTask(task);
+            saveTasks();
 
-            // Clear form inputs
             taskName.value = '';
             taskTime.value = '';
             taskPriority.value = 'low';
         } else {
-            errorMessage.classList.remove('hidden'); // Show error message if name is empty
+            errorMessage.classList.remove('hidden');
         }
     });
 
     // Handle task actions (complete or delete)
     todoList.addEventListener('click', (e) => {
         if (e.target.classList.contains('complete-btn')) {
-            e.target.parentElement.classList.toggle('completed'); // Toggle completed status
+            e.target.parentElement.classList.toggle('completed');
         } else if (e.target.classList.contains('delete-btn')) {
-            e.target.parentElement.remove(); // Remove task from list
+            e.target.parentElement.remove();
+            saveTasks(); // Update localStorage
         }
     });
+
+    // Load tasks on page load
+    loadTasks();
 });
