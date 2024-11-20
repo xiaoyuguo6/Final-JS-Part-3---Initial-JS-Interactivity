@@ -1,4 +1,3 @@
-/* Reset */
 * {
     margin: 0;
     padding: 0;
@@ -14,7 +13,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    flex-direction: column; /* For proper layout alignment */
+    flex-direction: column; 
     transition: background-color 0.3s, color 0.3s;
 }
 
