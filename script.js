@@ -7,6 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const todoList = document.getElementById('todo-list');
     const errorMessage = document.getElementById('error-message');
 
+    // Initialize Flatpickr with English format
+    flatpickr(taskTime, {
+        enableTime: true,
+        dateFormat: "Y/m/d H:i", // Example: "2024/11/20 02:37"
+        locale: "en" // Force English language
+    });
+
     // Default theme
     let currentTheme = 'theme-spring';
     document.body.classList.add(currentTheme);
@@ -15,14 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     themeButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
             const newTheme = btn.getAttribute('data-theme');
-
-            // Remove the current theme class
-            document.body.classList.remove(currentTheme);
-
-            // Add the new theme class
-            document.body.classList.add(newTheme);
-
-            // Update the current theme
+            document.body.classList.remove(currentTheme); // Remove the current theme
+            document.body.classList.add(newTheme); // Add the new theme
             currentTheme = newTheme;
         });
     });
@@ -36,41 +37,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const priority = taskPriority.value;
 
         if (name) {
-            errorMessage.classList.add('hidden'); // 隐藏错误提示
+            errorMessage.classList.add('hidden'); // Hide error message
 
-            // Format the time
-            let formattedDate = '';
-            let formattedTime = '';
-            if (time) {
-                const date = new Date(time);
-
-                // 格式化日期和时间
-                formattedDate = new Intl.DateTimeFormat('en-US', {
-                    dateStyle: 'long'
-                }).format(date);
-                formattedTime = new Intl.DateTimeFormat('en-US', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: true
-                }).format(date);
-            }
-
-            // 创建新的任务列表项
+            // Create a new task item
             const li = document.createElement('li');
             li.className = `todo-item priority-${priority}`;
             li.innerHTML = `
-                <span>${name} ${formattedDate ? `📅 ${formattedDate}` : ''} ${formattedTime ? `⏰ ${formattedTime}` : ''}</span>
+                <span>${name} ${time ? `📅 ${time}` : ''}</span>
                 <button class="complete-btn">✔</button>
                 <button class="delete-btn">✖</button>
             `;
             todoList.appendChild(li);
 
-            // 清空输入框
+            // Clear inputs
             taskName.value = '';
             taskTime.value = '';
             taskPriority.value = 'low';
         } else {
-            errorMessage.classList.remove('hidden'); // 显示错误提示
+            errorMessage.classList.remove('hidden'); // Show error message
         }
     });
 
