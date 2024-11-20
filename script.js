@@ -14,23 +14,23 @@ document.addEventListener('DOMContentLoaded', () => {
         locale: "en"
     });
 
-    // Load saved theme from localStorage
+    // Load saved theme
     let currentTheme = localStorage.getItem('currentTheme') || 'theme-spring';
     document.body.classList.add(currentTheme);
 
-    // Theme switching with save to localStorage
-    themeButtons.forEach((btn) => {
+    // Theme switching
+    themeButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             document.body.classList.replace(currentTheme, btn.getAttribute('data-theme'));
             currentTheme = btn.getAttribute('data-theme');
-            localStorage.setItem('currentTheme', currentTheme); // Save current theme
+            localStorage.setItem('currentTheme', currentTheme); // Save theme
         });
     });
 
     // Load tasks from localStorage
     function loadTasks() {
-        const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-        tasks.forEach(task => renderTask(task));
+        const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        savedTasks.forEach(task => renderTask(task));
     }
 
     // Save tasks to localStorage
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const li = document.createElement('li');
         li.className = `todo-item priority-${task.priority}`;
         li.dataset.name = task.name;
-        li.dataset.time = task.time || '';
+        li.dataset.time = task.time;
         li.dataset.priority = task.priority;
 
         li.draggable = true; // Enable drag-and-drop
@@ -66,28 +66,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // Drag-and-drop functionality
     let draggedItem = null;
 
-    todoList.addEventListener('dragstart', (e) => {
+    todoList.addEventListener('dragstart', e => {
         if (e.target.classList.contains('todo-item')) {
             draggedItem = e.target;
             e.target.classList.add('dragging');
         }
     });
 
-    todoList.addEventListener('dragend', (e) => {
+    todoList.addEventListener('dragend', e => {
         if (draggedItem) {
             draggedItem.classList.remove('dragging');
             draggedItem = null;
-            saveTasks(); // Save updated order to localStorage
+            saveTasks(); // Save updated order
         }
     });
 
-    todoList.addEventListener('dragover', (e) => {
+    todoList.addEventListener('dragover', e => {
         e.preventDefault();
         const afterElement = getDragAfterElement(todoList, e.clientY);
         if (draggedItem && afterElement) {
             todoList.insertBefore(draggedItem, afterElement);
         } else if (draggedItem) {
-            todoList.appendChild(draggedItem); // Append at the end if no afterElement
+            todoList.appendChild(draggedItem);
         }
     });
 
@@ -104,8 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { offset: Number.NEGATIVE_INFINITY }).element;
     }
 
-    // Handle task submission
-    todoForm.addEventListener('submit', (e) => {
+    // Handle form submission
+    todoForm.addEventListener('submit', e => {
         e.preventDefault();
         const name = taskName.value.trim();
         const time = taskTime.value;
@@ -113,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (name) {
             errorMessage.classList.add('hidden');
-
             const task = { name, time, priority };
             renderTask(task);
             saveTasks();
@@ -127,15 +126,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Handle task actions (complete or delete)
-    todoList.addEventListener('click', (e) => {
+    todoList.addEventListener('click', e => {
         if (e.target.classList.contains('complete-btn')) {
             e.target.parentElement.classList.toggle('completed');
         } else if (e.target.classList.contains('delete-btn')) {
             e.target.parentElement.remove();
-            saveTasks(); // Update localStorage
+            saveTasks();
         }
     });
 
-    // Load tasks and theme on page load
+    // Load tasks and theme
     loadTasks();
 });
