@@ -1,11 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const todoForm = document.getElementById('todo-form');
-    const taskName = document.getElementById('task-name');
-    const taskTime = document.getElementById('task-time');
-    const taskPriority = document.getElementById('task-priority');
-    const todoList = document.getElementById('todo-list');
     const themeButtons = document.querySelectorAll('.theme-btn');
-    const langButtons = document.querySelectorAll('.lang-btn');
+
+    // Default theme (can be set to user preference)
+    let currentTheme = 'spring';
+    document.body.classList.add(`theme-${currentTheme}`);
+
+    // Theme Switching
+    themeButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            // Remove the current theme class
+            document.body.classList.remove(`theme-${currentTheme}`);
+
+            // Add the new theme class
+            currentTheme = btn.classList[1]; // Get the theme name (e.g., 'spring', 'summer')
+            document.body.classList.add(`theme-${currentTheme}`);
+        });
+    });
+});
 
     // Add Task
     todoForm.addEventListener('submit', (e) => {
