@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Cute To-Do List 🌟</title>
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body class="theme-spring">
     <header>
@@ -21,7 +21,7 @@
         <section class="todo-app">
             <form id="todo-form">
                 <input type="text" id="task-name" placeholder="🌟 Task Name (e.g., Buy groceries)" required>
-                <input type="datetime-local" id="task-time">
+                <input type="text" id="task-time" placeholder="Select date and time">
                 <select id="task-priority">
                     <option value="low">Low 🌱</option>
                     <option value="medium">Medium 🌟</option>
