@@ -10,11 +10,10 @@ body {
     font-family: 'Patrick Hand', cursive;
     background: var(--body-bg);
     color: var(--header-text);
-    display: flex; /* 使用 flexbox 布局 */
-    justify-content: center; /* 水平居中 */
-    align-items: center; /* 垂直居中 */
-    height: 100vh; /* 占满屏幕高度 */
-    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -55,7 +54,7 @@ header h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 2rem;
     width: 100%;
-    max-width: 600px; /* 限制表单宽度 */
+    max-width: 600px;
     text-align: center;
 }
 
@@ -63,8 +62,8 @@ header h1 {
 #todo-form {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* 水平居中表单项 */
-    gap: 1rem; /* 设置输入框和按钮间距 */
+    justify-content: center;
+    gap: 1rem;
 }
 
 #task-name,
