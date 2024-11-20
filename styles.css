@@ -24,11 +24,14 @@ header h1 {
     margin-bottom: 0.5rem;
 }
 
-.theme-switcher, .language-switcher {
-    margin: 0.5rem 0;
+.theme-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
 }
 
-.theme-btn, .lang-btn {
+.theme-btn {
     padding: 0.5rem 1rem;
     border: none;
     cursor: pointer;
@@ -37,10 +40,11 @@ header h1 {
     transition: transform 0.2s, background-color 0.3s;
 }
 
-.theme-btn:hover, .lang-btn:hover {
+.theme-btn:hover {
     transform: scale(1.1);
 }
 
+/* To-Do Section */
 .todo-app {
     background: var(--card-bg);
     border-radius: 20px;
@@ -104,7 +108,7 @@ header h1 {
     --button-bg: #ffb347;
     --button-text: #fff;
     --item-bg: #fff5e1;
-    background: url('https://i.imgur.com/JbP7jSc.png') no-repeat center center;
+    background: linear-gradient(120deg, #a8e063, #56ab2f);
 }
 
 .theme-summer {
@@ -114,7 +118,7 @@ header h1 {
     --button-bg: #f39c12;
     --button-text: #fff;
     --item-bg: #ffe7b3;
-    background: url('https://i.imgur.com/5qH2DtW.png') no-repeat center center;
+    background: linear-gradient(120deg, #f7b733, #fc4a1a);
 }
 
 .theme-autumn {
@@ -124,7 +128,7 @@ header h1 {
     --button-bg: #9b59b6;
     --button-text: #fff;
     --item-bg: #e5d4f1;
-    background: url('https://i.imgur.com/UYWV2hr.png') no-repeat center center;
+    background: linear-gradient(120deg, #ff9966, #ff5e62);
 }
 
 .theme-winter {
@@ -134,7 +138,7 @@ header h1 {
     --button-bg: #3498db;
     --button-text: #fff;
     --item-bg: #d9edf7;
-    background: url('https://i.imgur.com/O4QXozh.png') no-repeat center center;
+    background: linear-gradient(120deg, #00c6ff, #0072ff);
 }
 
 /* Animations */
