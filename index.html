@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next-Level To-Do List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="light-mode">
+    <header>
+        <h1>My Productivity Space</h1>
+        <div class="theme-switcher">
+            <button class="theme-btn light">Light</button>
+            <button class="theme-btn dark">Dark</button>
+            <button class="theme-btn contrast">High Contrast</button>
+        </div>
+    </header>
+    <main>
+        <section class="todo-app">
+            <form id="todo-form">
+                <input type="text" id="todo-input" placeholder="What do you need to do?" required>
+                <button type="submit" id="add-task">Add Task</button>
+            </form>
+            <ul id="todo-list"></ul>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 Your Productivity App</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
