@@ -15,8 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
     themeButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
             const newTheme = btn.getAttribute('data-theme');
-            document.body.className = ''; // Clear all classes
+
+            // Remove the current theme class
+            document.body.classList.remove(currentTheme);
+
+            // Add the new theme class
             document.body.classList.add(newTheme);
+
+            // Update the current theme
             currentTheme = newTheme;
         });
     });
@@ -30,22 +36,41 @@ document.addEventListener('DOMContentLoaded', () => {
         const priority = taskPriority.value;
 
         if (name) {
-            errorMessage.classList.add('hidden'); // Hide error message
+            errorMessage.classList.add('hidden'); // 隐藏错误提示
+
+            // Format the time
+            let formattedDate = '';
+            let formattedTime = '';
+            if (time) {
+                const date = new Date(time);
+
+                // 格式化日期和时间
+                formattedDate = new Intl.DateTimeFormat('en-US', {
+                    dateStyle: 'long'
+                }).format(date);
+                formattedTime = new Intl.DateTimeFormat('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                }).format(date);
+            }
+
+            // 创建新的任务列表项
             const li = document.createElement('li');
             li.className = `todo-item priority-${priority}`;
             li.innerHTML = `
-                <span>${name} ${time ? `📅 ${time}` : ''}</span>
+                <span>${name} ${formattedDate ? `📅 ${formattedDate}` : ''} ${formattedTime ? `⏰ ${formattedTime}` : ''}</span>
                 <button class="complete-btn">✔</button>
                 <button class="delete-btn">✖</button>
             `;
             todoList.appendChild(li);
 
-            // Clear inputs
+            // 清空输入框
             taskName.value = '';
             taskTime.value = '';
             taskPriority.value = 'low';
         } else {
-            errorMessage.classList.remove('hidden'); // Show error message
+            errorMessage.classList.remove('hidden'); // 显示错误提示
         }
     });
 
