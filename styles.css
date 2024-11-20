@@ -8,14 +8,19 @@
 /* Global styles */
 body {
     font-family: 'Patrick Hand', cursive;
+    background: var(--body-bg);
+    color: var(--header-text);
+    display: flex; /* 使用 flexbox 布局 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    height: 100vh; /* 占满屏幕高度 */
+    margin: 0;
     transition: background-color 0.3s, color 0.3s;
-    text-align: center;
-    padding: 1rem;
 }
 
+/* Header */
 header {
     margin-bottom: 1rem;
-    color: var(--header-text);
 }
 
 header h1 {
@@ -43,20 +48,23 @@ header h1 {
     transform: scale(1.1);
 }
 
-/* To-Do Section */
+/* To-Do App Section */
 .todo-app {
     background: var(--card-bg);
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 1rem;
-    margin: 1rem auto;
-    max-width: 600px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px; /* 限制表单宽度 */
+    text-align: center;
 }
 
+/* Form layout */
 #todo-form {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    justify-content: center; /* 水平居中表单项 */
+    gap: 1rem; /* 设置输入框和按钮间距 */
 }
 
 #task-name,
@@ -66,10 +74,12 @@ header h1 {
     padding: 0.5rem;
     border: 2px solid var(--input-border);
     border-radius: 10px;
+    font-size: 1rem;
+    min-width: 150px;
 }
 
 #add-task {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.5rem;
     background: var(--button-bg);
     color: var(--button-text);
     border: none;
@@ -78,6 +88,7 @@ header h1 {
     font-size: 1rem;
 }
 
+/* Task List */
 #todo-list {
     list-style: none;
     padding: 0;
@@ -114,43 +125,43 @@ header h1 {
     font-size: 1rem;
 }
 
-/* Color Themes */
+/* Themes */
 .theme-spring {
+    --body-bg: linear-gradient(120deg, #a8e063, #56ab2f);
     --header-text: #2c3e50;
     --card-bg: #fef8e8;
     --input-border: #f3d1b2;
     --button-bg: #ffb347;
     --button-text: #fff;
     --item-bg: #fff5e1;
-    background: linear-gradient(120deg, #a8e063, #56ab2f);
 }
 
 .theme-summer {
+    --body-bg: linear-gradient(120deg, #f7b733, #fc4a1a);
     --header-text: #d35400;
     --card-bg: #fff3d9;
     --input-border: #ffb347;
     --button-bg: #f39c12;
     --button-text: #fff;
     --item-bg: #ffe7b3;
-    background: linear-gradient(120deg, #f7b733, #fc4a1a);
 }
 
 .theme-autumn {
+    --body-bg: linear-gradient(120deg, #ff9966, #ff5e62);
     --header-text: #8e44ad;
     --card-bg: #faebff;
     --input-border: #dcb4e7;
     --button-bg: #9b59b6;
     --button-text: #fff;
     --item-bg: #e5d4f1;
-    background: linear-gradient(120deg, #ff9966, #ff5e62);
 }
 
 .theme-winter {
+    --body-bg: linear-gradient(120deg, #00c6ff, #0072ff);
     --header-text: #34495e;
     --card-bg: #edf7fa;
     --input-border: #c1d8df;
     --button-bg: #3498db;
     --button-text: #fff;
     --item-bg: #d9edf7;
-    background: linear-gradient(120deg, #00c6ff, #0072ff);
 }
