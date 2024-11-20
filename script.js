@@ -5,17 +5,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskTime = document.getElementById('task-time');
     const taskPriority = document.getElementById('task-priority');
     const todoList = document.getElementById('todo-list');
+    const errorMessage = document.getElementById('error-message');
 
     // Default theme
-    let currentTheme = 'spring';
-    document.body.classList.add(`theme-${currentTheme}`);
+    let currentTheme = 'theme-spring';
+    document.body.classList.add(currentTheme);
 
     // Theme Switching
     themeButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
             const newTheme = btn.getAttribute('data-theme');
             document.body.className = ''; // Clear all classes
-            document.body.classList.add(`theme-${newTheme}`);
+            document.body.classList.add(newTheme);
             currentTheme = newTheme;
         });
     });
@@ -29,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const priority = taskPriority.value;
 
         if (name) {
+            errorMessage.classList.add('hidden'); // Hide error message
             const li = document.createElement('li');
             li.className = `todo-item priority-${priority}`;
             li.innerHTML = `
@@ -42,6 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
             taskName.value = '';
             taskTime.value = '';
             taskPriority.value = 'low';
+        } else {
+            errorMessage.classList.remove('hidden'); // Show error message
         }
     });
 
