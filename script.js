@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskPriority = document.getElementById('task-priority');
     const todoList = document.getElementById('todo-list');
     const errorMessage = document.getElementById('error-message');
-    
+
     // Initialize Flatpickr
     flatpickr(taskTime, {
         enableTime: true,
@@ -14,14 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
         locale: "en"
     });
 
-    // Default theme setup
-    let currentTheme = 'theme-spring';
+    // Load saved theme from localStorage
+    let currentTheme = localStorage.getItem('currentTheme') || 'theme-spring';
     document.body.classList.add(currentTheme);
 
+    // Theme switching with save to localStorage
     themeButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
             document.body.classList.replace(currentTheme, btn.getAttribute('data-theme'));
             currentTheme = btn.getAttribute('data-theme');
+            localStorage.setItem('currentTheme', currentTheme); // Save current theme
         });
     });
 
@@ -67,15 +69,15 @@ document.addEventListener('DOMContentLoaded', () => {
     todoList.addEventListener('dragstart', (e) => {
         if (e.target.classList.contains('todo-item')) {
             draggedItem = e.target;
-            e.target.style.opacity = '0.5';
+            e.target.classList.add('dragging');
         }
     });
 
     todoList.addEventListener('dragend', (e) => {
         if (draggedItem) {
-            draggedItem.style.opacity = '1';
+            draggedItem.classList.remove('dragging');
             draggedItem = null;
-            saveTasks(); // Update localStorage after reordering
+            saveTasks(); // Save updated order to localStorage
         }
     });
 
@@ -84,6 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const afterElement = getDragAfterElement(todoList, e.clientY);
         if (draggedItem && afterElement) {
             todoList.insertBefore(draggedItem, afterElement);
+        } else if (draggedItem) {
+            todoList.appendChild(draggedItem); // Append at the end if no afterElement
         }
     });
 
@@ -132,6 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Load tasks on page load
+    // Load tasks and theme on page load
     loadTasks();
 });
