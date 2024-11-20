@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Flatpickr with English format
     flatpickr(taskTime, {
         enableTime: true,
-        dateFormat: "Y/m/d H:i", // Example: "2024/11/20 02:37"
-        locale: "en" // Force English language
+        dateFormat: "Y/m/d H:i", 
+        locale: "en" 
     });
 
     // Default theme
@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     themeButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
             const newTheme = btn.getAttribute('data-theme');
-            document.body.classList.remove(currentTheme); // Remove the current theme
-            document.body.classList.add(newTheme); // Add the new theme
+            document.body.classList.remove(currentTheme); 
+            document.body.classList.add(newTheme); 
             currentTheme = newTheme;
         });
     });
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const priority = taskPriority.value;
 
         if (name) {
-            errorMessage.classList.add('hidden'); // Hide error message
+            errorMessage.classList.add('hidden'); 
 
             // Create a new task item
             const li = document.createElement('li');
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             taskTime.value = '';
             taskPriority.value = 'low';
         } else {
-            errorMessage.classList.remove('hidden'); // Show error message
+            errorMessage.classList.remove('hidden'); 
         }
     });
 
