@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskPriority = document.getElementById('task-priority');
     const todoList = document.getElementById('todo-list');
     const themeButtons = document.querySelectorAll('.theme-btn');
+    const langButtons = document.querySelectorAll('.lang-btn');
 
     // Add Task
     todoForm.addEventListener('submit', (e) => {
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const li = document.createElement('li');
             li.className = `todo-item priority-${priority}`;
             li.innerHTML = `
-                <span>${name} (${priority}) - ${time || 'No Deadline'}</span>
+                <span>${name} ${time ? `📅 ${time}` : ''}</span>
                 <button class="complete-btn">✔</button>
                 <button class="delete-btn">✖</button>
             `;
@@ -41,6 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
     themeButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
             document.body.className = `theme-${btn.classList[1]}`;
+        });
+    });
+
+    // Language Switching
+    langButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            alert(`Switching language to: ${btn.classList[1].toUpperCase()}`);
+            // Placeholder for real i18n logic
         });
     });
 });
