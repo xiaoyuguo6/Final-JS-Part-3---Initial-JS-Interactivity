@@ -104,6 +104,16 @@ header h1 {
     opacity: 0.6;
 }
 
+.hidden {
+    display: none;
+}
+
+#error-message {
+    color: red;
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
 /* Color Themes */
 .theme-spring {
     --header-text: #2c3e50;
