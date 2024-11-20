@@ -1,29 +1,34 @@
 document.addEventListener('DOMContentLoaded', () => {
     const todoForm = document.getElementById('todo-form');
-    const todoInput = document.getElementById('todo-input');
+    const taskName = document.getElementById('task-name');
+    const taskTime = document.getElementById('task-time');
+    const taskPriority = document.getElementById('task-priority');
     const todoList = document.getElementById('todo-list');
-
-    const themeBtns = document.querySelectorAll('.theme-btn');
+    const themeButtons = document.querySelectorAll('.theme-btn');
 
     // Add Task
     todoForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        const name = taskName.value.trim();
+        const time = taskTime.value;
+        const priority = taskPriority.value;
 
-        const taskText = todoInput.value.trim();
-        if (taskText) {
+        if (name) {
             const li = document.createElement('li');
-            li.className = 'todo-item';
+            li.className = `todo-item priority-${priority}`;
             li.innerHTML = `
-                <span>${taskText}</span>
+                <span>${name} (${priority}) - ${time || 'No Deadline'}</span>
                 <button class="complete-btn">✔</button>
                 <button class="delete-btn">✖</button>
             `;
             todoList.appendChild(li);
-            todoInput.value = '';
+            taskName.value = '';
+            taskTime.value = '';
+            taskPriority.value = 'low';
         }
     });
 
-    // Mark Complete or Delete Task
+    // Complete or Delete Task
     todoList.addEventListener('click', (e) => {
         if (e.target.classList.contains('complete-btn')) {
             e.target.parentElement.classList.toggle('completed');
@@ -33,9 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Theme Switching
-    themeBtns.forEach((btn) =>
+    themeButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
-            document.body.className = `${btn.classList[1]}-mode`;
-        })
-    );
+            document.body.className = `theme-${btn.classList[1]}`;
+        });
+    });
 });
