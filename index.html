@@ -11,16 +11,16 @@
     <header>
         <h1>🐰 My Cute To-Do List 🌟</h1>
         <div class="theme-switcher">
-            <button class="theme-btn spring" data-theme="spring">Spring 🌸</button>
-            <button class="theme-btn summer" data-theme="summer">Summer 🌞</button>
-            <button class="theme-btn autumn" data-theme="autumn">Autumn 🍂</button>
-            <button class="theme-btn winter" data-theme="winter">Winter ❄️</button>
+            <button class="theme-btn" data-theme="theme-spring">Spring 🌸</button>
+            <button class="theme-btn" data-theme="theme-summer">Summer 🌞</button>
+            <button class="theme-btn" data-theme="theme-autumn">Autumn 🍂</button>
+            <button class="theme-btn" data-theme="theme-winter">Winter ❄️</button>
         </div>
     </header>
     <main>
         <section class="todo-app">
             <form id="todo-form">
-                <input type="text" id="task-name" placeholder="🌟 Task Name" required>
+                <input type="text" id="task-name" placeholder="🌟 Task Name (e.g., Buy groceries)" required>
                 <input type="datetime-local" id="task-time">
                 <select id="task-priority">
                     <option value="low">Low 🌱</option>
@@ -30,6 +30,7 @@
                 <button type="submit" id="add-task">Add Task 📝</button>
             </form>
             <ul id="todo-list"></ul>
+            <p id="error-message" class="hidden">⚠️ Please enter a task name!</p>
         </section>
     </main>
     <footer>
