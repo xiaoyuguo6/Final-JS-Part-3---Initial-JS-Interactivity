@@ -1,44 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const themeButtons = document.querySelectorAll('.theme-btn');
-    const todoForm = document.getElementById('todo-form');
-    const taskName = document.getElementById('task-name');
-    const taskTime = document.getElementById('task-time');
-    const taskPriority = document.getElementById('task-priority');
-    const todoList = document.getElementById('todo-list');
-    const errorMessage = document.getElementById('error-message');
+    // Initialize variables for theme buttons, form elements, and task list
+    const themeButtons = document.querySelectorAll('.theme-btn'); // Theme buttons
+    const todoForm = document.getElementById('todo-form'); // Task input form
+    const taskName = document.getElementById('task-name'); // Input field for task name
+    const taskTime = document.getElementById('task-time'); // Input field for date and time
+    const taskPriority = document.getElementById('task-priority'); // Dropdown for task priority
+    const todoList = document.getElementById('todo-list'); // Task list container
+    const errorMessage = document.getElementById('error-message'); // Error message for missing task name
 
-    // Initialize Flatpickr for date and time selection
+    // Setup Flatpickr for date and time input
     flatpickr(taskTime, {
-        enableTime: true,
-        dateFormat: "Y/m/d H:i", // Example: "2024/11/20 02:37"
-        locale: "en" // Force English display
+        enableTime: true, // Enable time selection
+        dateFormat: "Y/m/d H:i", // Display format
+        locale: "en" // Ensure English display
     });
 
-    // Default theme
+    // Set default theme
     let currentTheme = 'theme-spring';
-    document.body.classList.add(currentTheme);
+    document.body.classList.add(currentTheme); // Apply default theme
 
-    // Theme Switching
+    // Add theme switching functionality
     themeButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
-            const newTheme = btn.getAttribute('data-theme');
-            document.body.classList.remove(currentTheme);
-            document.body.classList.add(newTheme);
-            currentTheme = newTheme;
+            document.body.classList.replace(currentTheme, btn.getAttribute('data-theme')); // Replace theme
+            currentTheme = btn.getAttribute('data-theme'); // Update current theme
         });
     });
 
-    // Add Task
+    // Handle task submission
     todoForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const name = taskName.value.trim();
-        const time = taskTime.value;
-        const priority = taskPriority.value;
+        e.preventDefault(); // Prevent form from refreshing the page
+        const name = taskName.value.trim(); // Get task name
+        const time = taskTime.value; // Get selected time
+        const priority = taskPriority.value; // Get selected priority
 
         if (name) {
-            errorMessage.classList.add('hidden');
+            errorMessage.classList.add('hidden'); // Hide error message
 
+            // Create and add task to the list
             const li = document.createElement('li');
             li.className = `todo-item priority-${priority}`;
             li.innerHTML = `
@@ -48,19 +47,21 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             todoList.appendChild(li);
 
+            // Clear form inputs
             taskName.value = '';
             taskTime.value = '';
             taskPriority.value = 'low';
         } else {
-            errorMessage.classList.remove('hidden');
+            errorMessage.classList.remove('hidden'); // Show error message if name is empty
         }
     });
 
+    // Handle task actions (complete or delete)
     todoList.addEventListener('click', (e) => {
         if (e.target.classList.contains('complete-btn')) {
-            e.target.parentElement.classList.toggle('completed');
+            e.target.parentElement.classList.toggle('completed'); // Toggle completed status
         } else if (e.target.classList.contains('delete-btn')) {
-            e.target.parentElement.remove();
+            e.target.parentElement.remove(); // Remove task from list
         }
     });
 });
