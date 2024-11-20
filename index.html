@@ -3,38 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced To-Do List</title>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;600&display=swap" rel="stylesheet">
+    <title>To-Do Wonderland 🐰✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="theme-spring">
     <header>
-        <h1>My Cute To-Do List</h1>
+        <h1>🌸 To-Do Wonderland 🌸</h1>
         <div class="theme-switcher">
-            <button class="theme-btn spring">Spring</button>
-            <button class="theme-btn summer">Summer</button>
-            <button class="theme-btn autumn">Autumn</button>
-            <button class="theme-btn winter">Winter</button>
+            <button class="theme-btn spring">Spring 🌼</button>
+            <button class="theme-btn summer">Summer 🌞</button>
+            <button class="theme-btn autumn">Autumn 🍂</button>
+            <button class="theme-btn winter">Winter ❄️</button>
+        </div>
+        <div class="language-switcher">
+            <button class="lang-btn en">English 🇺🇸</button>
+            <button class="lang-btn zh">中文 🇨🇳</button>
         </div>
     </header>
     <main>
         <section class="todo-app">
             <form id="todo-form">
-                <input type="text" id="task-name" placeholder="What’s your task?" required>
+                <input type="text" id="task-name" placeholder="🌟 What's your task?" required>
                 <input type="datetime-local" id="task-time">
                 <select id="task-priority">
-                    <option value="low">Low Priority</option>
-                    <option value="medium">Medium Priority</option>
-                    <option value="high">High Priority</option>
+                    <option value="low">Low 🌱</option>
+                    <option value="medium">Medium 🌟</option>
+                    <option value="high">High 🚀</option>
                 </select>
-                <button type="submit" id="add-task">Add Task</button>
+                <button type="submit" id="add-task">Add 📝</button>
             </form>
             <ul id="todo-list"></ul>
         </section>
+        <section id="quote-box">
+            <p class="quote">✨ Keep going, you're amazing! ✨</p>
+        </section>
     </main>
     <footer>
+        <p>© 2024 To-Do Wonderland. Made with 💖.</p>
     </footer>
     <script src="script.js"></script>
 </body>
 </html>
-
